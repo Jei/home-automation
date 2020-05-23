@@ -21,7 +21,7 @@ declare const global: {HermesInternal: null | {}};
 const App = () => {
   return (
     <Provider store={store}>
-      <DevicePage />
+      <DevicePage id="d1c0bfb2d" />
     </Provider>
   );
 };
