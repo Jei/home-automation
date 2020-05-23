@@ -116,7 +116,7 @@ export const fetchDevice = (id: string): AppThunk => async (dispatch) => {
   let response: Device;
   dispatch(fetchDeviceStart());
   try {
-    response = await api.get(`/devices/${id}`);
+    response = await api.get<Device>(`/devices/${id}`).then((res) => res.data);
   } catch (err) {
     dispatch(fetchDeviceError(err.toString()));
     return;
