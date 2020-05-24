@@ -124,10 +124,7 @@ export const fetchDevice = (id: string): AppThunk => async (dispatch) => {
   dispatch(fetchDeviceSuccess(response));
 };
 
-export const setFan = (fan: boolean): AppThunk => async (
-  dispatch,
-  getState,
-) => {
+export const toggleFan = (): AppThunk => async (dispatch, getState) => {
   const {details, isLoading} = getState().device;
 
   if (isLoading || details === null) {
@@ -135,22 +132,21 @@ export const setFan = (fan: boolean): AppThunk => async (
     return;
   }
 
+  const newFan = !details.fan;
+
   dispatch(setFanStart());
   try {
     await api.patch(`/devices/${details.id}`, {
-      fan,
+      fan: newFan,
     });
   } catch (err) {
     dispatch(setFanError(err.toString()));
     return;
   }
-  dispatch(setFanSuccess(fan));
+  dispatch(setFanSuccess(newFan));
 };
 
-export const setLight = (light: boolean): AppThunk => async (
-  dispatch,
-  getState,
-) => {
+export const toggleLight = (): AppThunk => async (dispatch, getState) => {
   const {details, isLoading} = getState().device;
 
   if (isLoading || details === null) {
@@ -158,16 +154,18 @@ export const setLight = (light: boolean): AppThunk => async (
     return;
   }
 
+  const newLight = !details.light;
+
   dispatch(setLightStart());
   try {
     await api.patch(`/devices/${details.id}`, {
-      light,
+      light: newLight,
     });
   } catch (err) {
     dispatch(setLightError(err.toString()));
     return;
   }
-  dispatch(setLightSuccess(light));
+  dispatch(setLightSuccess(newLight));
 };
 
 export const setAll = (status: boolean): AppThunk => async (
@@ -180,6 +178,8 @@ export const setAll = (status: boolean): AppThunk => async (
     dispatch(setAllError('Device unavailable'));
     return;
   }
+
+  // TODO update appliances only if needed
 
   dispatch(setAllStart());
   try {

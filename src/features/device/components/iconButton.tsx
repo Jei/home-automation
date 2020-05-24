@@ -8,6 +8,7 @@ import {
   GestureResponderEvent,
   ViewStyle,
   StyleProp,
+  ActivityIndicator,
 } from 'react-native';
 
 type IconButtonProps = {
@@ -15,6 +16,7 @@ type IconButtonProps = {
   text: string | null;
   iconColor?: string;
   textColor?: string;
+  showLoader?: boolean;
   style?: StyleProp<ViewStyle>;
   onPress: (event: GestureResponderEvent) => void;
 };
@@ -24,13 +26,18 @@ const IconButton = ({
   text,
   iconColor = '#000000',
   textColor = '#000000',
+  showLoader = false,
   style,
   onPress,
 }: IconButtonProps) => {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={[styles.container, style]}>
-        <Image source={icon} style={[styles.icon, {tintColor: iconColor}]} />
+        {showLoader ? (
+          <ActivityIndicator color={iconColor} size="small" />
+        ) : (
+          <Image source={icon} style={[styles.icon, {tintColor: iconColor}]} />
+        )}
         <Text style={[styles.text, {color: textColor}]}>{text}</Text>
       </View>
     </TouchableWithoutFeedback>

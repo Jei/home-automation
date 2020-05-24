@@ -5,7 +5,7 @@ import {fetchDevice} from './deviceSlice';
 import {RootState} from 'src/rootReducer';
 import ErrorState from './components/errorState';
 import LoadingState from './components/loadingState';
-import DeviceDetails from './containers/deviceDetails';
+import DeviceDetails from './components/deviceDetails';
 
 // FIXME use correct types
 type DevicePageProps = {

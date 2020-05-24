@@ -1,10 +1,27 @@
 import React from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
-import IconButton from '../components/iconButton';
-import ApplianceCard from '../components/applianceCard';
-import FlatButton from '../components/flatButton';
+import IconButton from './iconButton';
+import ApplianceCard from './applianceCard';
+import FlatButton from './flatButton';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from 'src/rootReducer';
+import {toggleLight, toggleFan, setAll} from '../deviceSlice';
 
 const DeviceDetails = () => {
+  const appliances = useSelector((state: RootState) => {
+    const {isLoadingFan, isLoadingLight} = state.device;
+    const {fan, light} = state.device.details || {};
+
+    return {
+      isLoadingFan,
+      isLoadingLight,
+      fan,
+      light,
+    };
+  });
+
+  const dispatch = useDispatch();
+
   return (
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
@@ -31,14 +48,18 @@ const DeviceDetails = () => {
           <IconButton
             icon=""
             text="All ON"
-            onPress={() => {}}
+            onPress={() => {
+              dispatch(setAll(true));
+            }}
             style={styles.controlButton}
             iconColor={'#00ff00'}
           />
           <IconButton
             icon=""
             text="All OFF"
-            onPress={() => {}}
+            onPress={() => {
+              dispatch(setAll(false));
+            }}
             style={styles.controlButton}
             iconColor={'#ff0000'}
           />
@@ -48,13 +69,21 @@ const DeviceDetails = () => {
         <ApplianceCard
           icon=""
           title="Light"
-          onPress={() => {}}
+          status={appliances.light}
+          isLoading={appliances.isLoadingLight}
+          onPress={() => {
+            dispatch(toggleLight());
+          }}
           onEditPress={() => {}}
         />
         <ApplianceCard
           icon=""
           title="Fan"
-          onPress={() => {}}
+          status={appliances.fan}
+          isLoading={appliances.isLoadingFan}
+          onPress={() => {
+            dispatch(toggleFan());
+          }}
           onEditPress={() => {}}
         />
       </View>

@@ -3,16 +3,11 @@ import {StyleSheet, View, GestureResponderEvent} from 'react-native';
 import IconButton from './iconButton';
 import FlatButton from './flatButton';
 
-enum ApplianceStatus {
-  Off,
-  On,
-  Loading,
-}
-
 type ApplianceCardProps = {
   icon: string;
   title: string | null;
-  status?: ApplianceStatus;
+  status?: boolean;
+  isLoading?: boolean;
   onPress: (event: GestureResponderEvent) => void;
   onEditPress: (event: GestureResponderEvent) => void;
 };
@@ -20,17 +15,18 @@ type ApplianceCardProps = {
 const ApplianceCard = ({
   icon,
   title,
-  status = ApplianceStatus.Off,
+  status = false,
+  isLoading = false,
   onPress,
   onEditPress,
 }: ApplianceCardProps) => {
   const buttonStyle = [
     styles.action,
     {
-      backgroundColor: status === ApplianceStatus.On ? '#ff0000' : '#ffffff',
+      backgroundColor: status ? '#ff0000' : '#ffffff',
     },
   ];
-  const color = status === ApplianceStatus.On ? '#ffffff' : '#ff0000';
+  const color = status ? '#ffffff' : '#ff0000';
   return (
     <View style={styles.container}>
       <IconButton
@@ -38,6 +34,7 @@ const ApplianceCard = ({
         text={title}
         onPress={onPress}
         style={buttonStyle}
+        showLoader={isLoading}
         iconColor={color}
         textColor={color}
       />
