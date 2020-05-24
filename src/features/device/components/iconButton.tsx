@@ -34,7 +34,7 @@ const IconButton = ({
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={[styles.container, style]}>
         {showLoader ? (
-          <ActivityIndicator color={iconColor} size="small" />
+          <ActivityIndicator color={iconColor} size="large" />
         ) : (
           <Image source={icon} style={[styles.icon, {tintColor: iconColor}]} />
         )}
