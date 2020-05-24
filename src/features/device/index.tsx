@@ -6,23 +6,30 @@ import {RootState} from 'src/rootReducer';
 import ErrorState from './components/errorState';
 import LoadingState from './components/loadingState';
 import DeviceDetails from './components/deviceDetails';
+import {StackScreenProps} from '@react-navigation/stack';
+import {MainNavigationParamList} from 'src/types';
 
 // FIXME use correct types
-type DevicePageProps = {
-  id: string;
-};
+type DeviceScreenProps = StackScreenProps<MainNavigationParamList, 'Device'>;
 
-const DevicePage = ({id}: DevicePageProps) => {
+const DevicePage = ({route, navigation}: DeviceScreenProps) => {
+  const {id} = route.params;
   const dispatch = useDispatch();
-  const status = useSelector((state: RootState) => ({
-    isLoading: state.device.isLoading,
-    error: state.device.error,
-  }));
-  const {isLoading, error} = status;
+  const status = useSelector((state: RootState) => {
+    const {isLoading, error} = state.device;
+    const {name} = state.device.details || {};
+
+    return {isLoading, error, name};
+  });
+  const {isLoading, error, name} = status;
 
   useEffect(() => {
     dispatch(fetchDevice(id));
   }, [id, dispatch]);
+
+  if (name != null) {
+    navigation.setOptions({title: name});
+  }
 
   // TODO add empty state
   return (

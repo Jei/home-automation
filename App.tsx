@@ -9,19 +9,17 @@
  */
 
 import React from 'react';
-
-import DevicePage from './src/features/device';
-
+import {NavigationContainer} from '@react-navigation/native';
 import {Provider} from 'react-redux';
-
 import store from './src/store';
-
-declare const global: {HermesInternal: null | {}};
+import MainNavigation from './src/navigation/mainNavigation';
 
 const App = () => {
   return (
     <Provider store={store}>
-      <DevicePage id="d1c0bfb2d" />
+      <NavigationContainer>
+        <MainNavigation />
+      </NavigationContainer>
     </Provider>
   );
 };
