@@ -92,6 +92,23 @@ const deviceSlice = createSlice({
       state.isLoadingLight = false;
       state.error = payload;
     },
+    setNameStart: (state: DeviceState) => {
+      state.isLoadingName = true;
+    },
+    setNameSuccess: (
+      state: DeviceState,
+      {payload}: PayloadAction<string | null>,
+    ) => {
+      state.isLoadingName = false;
+      state.error = null;
+      if (state.details) {
+        state.details.name = payload;
+      }
+    },
+    setNameError: (state: DeviceState, {payload}: PayloadAction<string>) => {
+      state.isLoadingName = false;
+      state.error = payload;
+    },
   },
 });
 
@@ -108,6 +125,9 @@ export const {
   setAllStart,
   setAllSuccess,
   setAllError,
+  setNameStart,
+  setNameSuccess,
+  setNameError,
 } = deviceSlice.actions;
 
 export default deviceSlice.reducer;
@@ -192,4 +212,27 @@ export const setAll = (status: boolean): AppThunk => async (
     return;
   }
   dispatch(setAllSuccess(status));
+};
+
+export const setName = (name: string | null): AppThunk => async (
+  dispatch,
+  getState,
+) => {
+  const {details, isLoading} = getState().device;
+
+  if (isLoading || details === null) {
+    dispatch(setNameError('Device unavailable'));
+    return;
+  }
+
+  dispatch(setNameStart());
+  try {
+    await api.patch(`/devices/${details.id}`, {
+      name,
+    });
+  } catch (err) {
+    dispatch(setNameError(err.toString()));
+    return;
+  }
+  dispatch(setNameSuccess(name));
 };

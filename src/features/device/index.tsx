@@ -14,26 +14,26 @@ type DeviceScreenProps = StackScreenProps<MainNavigationParamList, 'Device'>;
 const DevicePage = ({route, navigation}: DeviceScreenProps) => {
   const {id} = route.params;
   const dispatch = useDispatch();
-  const status = useSelector((state: RootState) => {
-    const {isLoading, error} = state.device;
-    const {name} = state.device.details || {};
-
-    return {isLoading, error, name};
-  });
-  const {isLoading, error, name} = status;
+  const isLoading = useSelector((state: RootState) => state.device.isLoading);
+  const error = useSelector((state: RootState) => state.device.error);
+  const name = useSelector(
+    (state: RootState) => state.device.details?.name || null,
+  );
 
   useEffect(() => {
     dispatch(fetchDevice(id));
   }, [id, dispatch]);
 
-  if (name != null) {
+  if (name != null && name.length > 0) {
     navigation.setOptions({title: name});
+  } else {
+    navigation.setOptions({title: id});
   }
 
   // TODO add empty state
   return (
     <>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="light-content" />
       <SafeAreaView style={styles.container}>
         {isLoading ? (
           <LoadingState />

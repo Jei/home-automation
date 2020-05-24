@@ -12,7 +12,12 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
   });
 }
 
-export type AppThunk = ThunkAction<void, RootState, unknown, Action<string>>;
+export type AppThunk = ThunkAction<
+  Promise<any>,
+  RootState,
+  unknown,
+  Action<string>
+>;
 
 export type AppDispatch = typeof store.dispatch;
 
