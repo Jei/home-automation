@@ -6,5 +6,6 @@ export interface Device {
 }
 
 export type MainNavigationParamList = {
+  Home: {};
   Device: {id: string};
 };

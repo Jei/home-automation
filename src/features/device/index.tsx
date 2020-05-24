@@ -9,7 +9,6 @@ import DeviceDetails from './components/deviceDetails';
 import {StackScreenProps} from '@react-navigation/stack';
 import {MainNavigationParamList} from 'src/types';
 
-// FIXME use correct types
 type DeviceScreenProps = StackScreenProps<MainNavigationParamList, 'Device'>;
 
 const DevicePage = ({route, navigation}: DeviceScreenProps) => {

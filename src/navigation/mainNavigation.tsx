@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import DeviceScreen from '../features/device';
 import {MainNavigationParamList} from '../types';
+import HomeScreen from '../features/home';
 
 const Stack = createStackNavigator<MainNavigationParamList>();
 
@@ -14,10 +15,10 @@ const MainNavigation = () => {
         },
         headerTintColor: '#ffffff',
       }}>
+      <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen
         name="Device"
         component={DeviceScreen}
-        initialParams={{id: 'd1c0bfb2d'}}
         options={({route}) => ({title: route.params.id})}
       />
     </Stack.Navigator>
