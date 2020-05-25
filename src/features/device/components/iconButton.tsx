@@ -9,13 +9,15 @@ import {
   ViewStyle,
   StyleProp,
   ActivityIndicator,
+  ImageSourcePropType,
 } from 'react-native';
 
 type IconButtonProps = {
-  icon: any;
+  icon: ImageSourcePropType;
   text: string | null;
   iconColor?: string;
   textColor?: string;
+  textSize?: number;
   showLoader?: boolean;
   style?: StyleProp<ViewStyle>;
   onPress: (event: GestureResponderEvent) => void;
@@ -26,6 +28,7 @@ const IconButton = ({
   text,
   iconColor = '#000000',
   textColor = '#000000',
+  textSize = 14,
   showLoader = false,
   style,
   onPress,
@@ -38,7 +41,9 @@ const IconButton = ({
         ) : (
           <Image source={icon} style={[styles.icon, {tintColor: iconColor}]} />
         )}
-        <Text style={[styles.text, {color: textColor}]}>{text}</Text>
+        <Text style={[styles.text, {color: textColor, fontSize: textSize}]}>
+          {text}
+        </Text>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -51,7 +56,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  icon: {},
+  icon: {
+    height: 40,
+    width: 40,
+  },
   text: {},
 });
 

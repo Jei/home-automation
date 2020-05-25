@@ -49,14 +49,14 @@ const DeviceDetails = () => {
         <View style={styles.controls}>
           <View style={styles.controlsSection}>
             <IconButton
-              icon=""
+              icon={require('../../../../assets/images/schedules.png')}
               text="Schedules"
               onPress={() => {}}
               style={styles.controlButton}
               iconColor={'#0000ff'}
             />
             <IconButton
-              icon=""
+              icon={require('../../../../assets/images/timers.png')}
               text="Timers"
               onPress={() => {}}
               style={styles.controlButton}
@@ -66,7 +66,7 @@ const DeviceDetails = () => {
           <View style={styles.verticalSeparator} />
           <View style={styles.controlsSection}>
             <IconButton
-              icon=""
+              icon={require('../../../../assets/images/on-off.png')}
               text="All ON"
               onPress={() => {
                 dispatch(setAll(true));
@@ -75,7 +75,7 @@ const DeviceDetails = () => {
               iconColor={'#00ff00'}
             />
             <IconButton
-              icon=""
+              icon={require('../../../../assets/images/on-off.png')}
               text="All OFF"
               onPress={() => {
                 dispatch(setAll(false));
@@ -87,7 +87,7 @@ const DeviceDetails = () => {
         </View>
         <View style={styles.appliances}>
           <ApplianceCard
-            icon=""
+            icon={require('../../../../assets/images/light.png')}
             title="Light"
             status={details.light}
             isLoading={details.isLoadingLight}
@@ -97,7 +97,7 @@ const DeviceDetails = () => {
             onEditPress={() => {}}
           />
           <ApplianceCard
-            icon=""
+            icon={require('../../../../assets/images/fan.png')}
             title="Fan"
             status={details.fan}
             isLoading={details.isLoadingFan}
@@ -139,7 +139,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   controls: {
-    height: 88,
+    marginTop: 8,
+    height: 96,
     alignItems: 'stretch',
     flexDirection: 'row',
     paddingVertical: 8,
@@ -155,6 +156,7 @@ const styles = StyleSheet.create({
   },
   controlButton: {
     flex: 0.4,
+    marginVertical: 4,
   },
   appliances: {
     flexDirection: 'row',
@@ -172,7 +174,7 @@ const styles = StyleSheet.create({
   },
   optionButton: {
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 18,
     textAlign: 'left',
     height: 56,
   },

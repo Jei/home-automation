@@ -1,10 +1,15 @@
 import React from 'react';
-import {StyleSheet, View, GestureResponderEvent} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  GestureResponderEvent,
+  ImageSourcePropType,
+} from 'react-native';
 import IconButton from './iconButton';
 import FlatButton from './flatButton';
 
 type ApplianceCardProps = {
-  icon: string;
+  icon: ImageSourcePropType;
   title: string | null;
   status?: boolean;
   isLoading?: boolean;
@@ -37,8 +42,9 @@ const ApplianceCard = ({
         showLoader={isLoading}
         iconColor={color}
         textColor={color}
+        textSize={16}
       />
-      <FlatButton title="Edit" onPress={onEditPress} />
+      <FlatButton title="Edit" onPress={onEditPress} style={styles.edit} />
     </View>
   );
 };
@@ -55,7 +61,10 @@ const styles = StyleSheet.create({
     width: 100,
     borderRadius: 8,
     elevation: 2,
-    padding: 8,
+    padding: 16,
+  },
+  edit: {
+    fontSize: 16,
   },
 });
 

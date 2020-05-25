@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, SafeAreaView, StyleSheet, Text} from 'react-native';
+import {Button, SafeAreaView, StyleSheet, Text, Image} from 'react-native';
 import {MainNavigationParamList} from 'src/types';
 import {StackScreenProps} from '@react-navigation/stack';
 
@@ -8,6 +8,10 @@ type DeviceScreenProps = StackScreenProps<MainNavigationParamList, 'Home'>;
 const HomeScreen = ({navigation}: DeviceScreenProps) => {
   return (
     <SafeAreaView style={styles.container}>
+      <Image
+        source={require('../../../assets/images/home-assistant.png')}
+        style={styles.logo}
+      />
       <Text style={styles.title}>Device Manager</Text>
       <Button
         color="#4500c6"
@@ -24,11 +28,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  logo: {
+    tintColor: '#4500c6',
+    height: 120,
+    width: 120,
+  },
   title: {
     fontSize: 32,
     fontWeight: 'bold',
     margin: 24,
-    color: '#4500c6',
   },
 });
 
