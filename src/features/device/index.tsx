@@ -16,7 +16,9 @@ const DevicePage = ({route, navigation}: DeviceScreenProps) => {
   const {id} = route.params;
   const dispatch = useDispatch();
   const isLoading = useSelector((state: RootState) => state.device.isLoading);
-  const error = useSelector((state: RootState) => state.device.error);
+  const loadingError = useSelector(
+    (state: RootState) => state.device.loadingError,
+  );
   const name = useSelector(
     (state: RootState) => state.device.details?.name || null,
   );
@@ -41,9 +43,9 @@ const DevicePage = ({route, navigation}: DeviceScreenProps) => {
       <SafeAreaView style={styles.container}>
         {isLoading ? (
           <LoadingState />
-        ) : error ? (
+        ) : loadingError ? (
           <ErrorState
-            text={error}
+            text={loadingError}
             onRetryPress={() => dispatch(fetchDevice(id))}
           />
         ) : (

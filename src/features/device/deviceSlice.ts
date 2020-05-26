@@ -9,6 +9,7 @@ interface DeviceState {
   isLoadingName: boolean;
   isLoadingFan: boolean;
   isLoadingLight: boolean;
+  loadingError: string | null;
   error: string | null;
 }
 
@@ -18,6 +19,7 @@ const initialState: DeviceState = {
   isLoadingName: false,
   isLoadingFan: false,
   isLoadingLight: false,
+  loadingError: null,
   error: null,
 };
 
@@ -34,14 +36,14 @@ const deviceSlice = createSlice({
     ) => {
       state.details = payload;
       state.isLoading = false;
-      state.error = null;
+      state.loadingError = null;
     },
     fetchDeviceError: (
       state: DeviceState,
       {payload}: PayloadAction<string>,
     ) => {
       state.isLoading = false;
-      state.error = payload;
+      state.loadingError = payload;
     },
     setFanStart: (state: DeviceState) => {
       state.isLoadingFan = true;
@@ -144,6 +146,32 @@ export const fetchDevice = (id: string): AppThunk => async (dispatch) => {
   dispatch(fetchDeviceSuccess(response));
 };
 
+const setFan = (value: boolean): AppThunk => async (dispatch, getState) => {
+  const {details, isLoading, isLoadingFan} = getState().device;
+
+  if (isLoading || details === null) {
+    dispatch(setFanError('Device unavailable'));
+    return;
+  }
+
+  const {id, fan} = details;
+
+  if (isLoadingFan || value === fan) {
+    return;
+  }
+
+  dispatch(setFanStart());
+  try {
+    await api.patch(`/devices/${id}`, {
+      fan: value,
+    });
+  } catch (err) {
+    dispatch(setFanError(err.toString()));
+    return;
+  }
+  dispatch(setFanSuccess(value));
+};
+
 export const toggleFan = (): AppThunk => async (dispatch, getState) => {
   const {details, isLoading} = getState().device;
 
@@ -152,18 +180,33 @@ export const toggleFan = (): AppThunk => async (dispatch, getState) => {
     return;
   }
 
-  const newFan = !details.fan;
+  await dispatch(setFan(!details.fan));
+};
 
-  dispatch(setFanStart());
-  try {
-    await api.patch(`/devices/${details.id}`, {
-      fan: newFan,
-    });
-  } catch (err) {
-    dispatch(setFanError(err.toString()));
+const setLight = (value: boolean): AppThunk => async (dispatch, getState) => {
+  const {details, isLoading, isLoadingLight} = getState().device;
+
+  if (isLoading || details === null) {
+    dispatch(setLightError('Device unavailable'));
     return;
   }
-  dispatch(setFanSuccess(newFan));
+
+  const {id, light} = details;
+
+  if (isLoadingLight || value === light) {
+    return;
+  }
+
+  dispatch(setLightStart());
+  try {
+    await api.patch(`/devices/${id}`, {
+      light: value,
+    });
+  } catch (err) {
+    dispatch(setLightError(err.toString()));
+    return;
+  }
+  dispatch(setLightSuccess(value));
 };
 
 export const toggleLight = (): AppThunk => async (dispatch, getState) => {
@@ -174,44 +217,41 @@ export const toggleLight = (): AppThunk => async (dispatch, getState) => {
     return;
   }
 
-  const newLight = !details.light;
-
-  dispatch(setLightStart());
-  try {
-    await api.patch(`/devices/${details.id}`, {
-      light: newLight,
-    });
-  } catch (err) {
-    dispatch(setLightError(err.toString()));
-    return;
-  }
-  dispatch(setLightSuccess(newLight));
+  await dispatch(setLight(!details.light));
 };
 
 export const setAll = (status: boolean): AppThunk => async (
   dispatch,
   getState,
 ) => {
-  const {details, isLoading} = getState().device;
+  const {details, isLoading, isLoadingFan, isLoadingLight} = getState().device;
 
   if (isLoading || details === null) {
     dispatch(setAllError('Device unavailable'));
     return;
   }
 
-  // TODO update appliances only if needed
+  const {fan, light} = details;
+  const updateFan = !isLoadingFan && fan !== status;
+  const updateLight = !isLoadingLight && light !== status;
 
-  dispatch(setAllStart());
-  try {
-    await api.patch(`/devices/${details.id}`, {
-      fan: status,
-      light: status,
-    });
-  } catch (err) {
-    dispatch(setAllError(err.toString()));
-    return;
+  if (updateFan && !updateLight) {
+    await dispatch(setFan(status));
+  } else if (!updateFan && updateLight) {
+    await dispatch(setLight(status));
+  } else if (updateFan && updateLight) {
+    dispatch(setAllStart());
+    try {
+      await api.patch(`/devices/${details.id}`, {
+        fan: status,
+        light: status,
+      });
+    } catch (err) {
+      dispatch(setAllError(err.toString()));
+      return;
+    }
+    dispatch(setAllSuccess(status));
   }
-  dispatch(setAllSuccess(status));
 };
 
 export const setName = (name: string | null): AppThunk => async (
