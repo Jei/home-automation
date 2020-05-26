@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -17,6 +17,7 @@ interface RenameActionEvent {
 type RenameModalProps = {
   isVisible: boolean;
   loading?: boolean;
+  initialValue?: string | null;
   onAction: (event: RenameActionEvent) => void;
   onCancel: () => void;
 };
@@ -24,10 +25,15 @@ type RenameModalProps = {
 const RenameModal = ({
   isVisible,
   loading = false,
+  initialValue,
   onAction,
   onCancel,
 }: RenameModalProps) => {
   const [value, setValue] = useState('');
+
+  useEffect(() => {
+    setValue(initialValue || '');
+  }, [initialValue]);
 
   return (
     <Modal

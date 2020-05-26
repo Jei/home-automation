@@ -12,7 +12,7 @@ import Colors from '../../../colors';
 const DeviceDetails = () => {
   const details = useSelector((state: RootState) => {
     const {isLoadingFan, isLoadingLight, isLoadingName} = state.device;
-    const {fan, light} = state.device.details || {};
+    const {fan, light, name} = state.device.details || {};
 
     return {
       isLoadingFan,
@@ -20,6 +20,7 @@ const DeviceDetails = () => {
       isLoadingName,
       fan,
       light,
+      name,
     };
   }, shallowEqual);
   const [renaming, setRenaming] = useState(false);
@@ -37,6 +38,7 @@ const DeviceDetails = () => {
       <RenameModal
         isVisible={renaming}
         loading={details.isLoadingName}
+        initialValue={details.name}
         onAction={({value}) => {
           dispatch(setName(value));
         }}
