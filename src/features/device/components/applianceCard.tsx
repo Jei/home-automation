@@ -47,7 +47,12 @@ const ApplianceCard = ({
           textSize={16}
         />
       </View>
-      <FlatButton title="Edit" onPress={onEditPress} style={styles.edit} />
+      <FlatButton
+        title="Edit"
+        onPress={onEditPress}
+        style={styles.edit}
+        withFeedback
+      />
     </View>
   );
 };
@@ -58,6 +63,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: Colors.background,
     margin: 8,
+    overflow: 'hidden',
   },
   border: {
     height: 120,

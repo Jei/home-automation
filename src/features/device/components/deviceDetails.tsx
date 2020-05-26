@@ -116,18 +116,21 @@ const DeviceDetails = () => {
               setRenaming(true);
             }}
             style={styles.optionButton}
+            withFeedback
           />
           <View style={styles.horizontalSeparator} />
           <FlatButton
             title="Find Me"
             onPress={() => {}}
             style={styles.optionButton}
+            withFeedback
           />
           <View style={styles.horizontalSeparator} />
           <FlatButton
             title="Reboot"
             onPress={() => {}}
             style={styles.optionButton}
+            withFeedback
           />
           <View style={styles.horizontalSeparator} />
         </View>
