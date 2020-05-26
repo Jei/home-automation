@@ -1,37 +1,14 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {SafeAreaView, StyleSheet, StatusBar} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {fetchDevice} from './deviceSlice';
-import {RootState} from 'src/rootReducer';
-import ErrorState from './components/errorState';
-import LoadingState from './components/loadingState';
-import DeviceDetails from './components/deviceDetails';
+import DeviceDetails from './containers/deviceDetails';
 import {StackScreenProps} from '@react-navigation/stack';
-import {MainNavigationParamList} from 'src/types';
+import {MainNavigationParamList} from '../../types';
 import Colors from '../../colors';
 
 type DeviceScreenProps = StackScreenProps<MainNavigationParamList, 'Device'>;
 
 const DevicePage = ({route, navigation}: DeviceScreenProps) => {
   const {id} = route.params;
-  const dispatch = useDispatch();
-  const isLoading = useSelector((state: RootState) => state.device.isLoading);
-  const loadingError = useSelector(
-    (state: RootState) => state.device.loadingError,
-  );
-  const name = useSelector(
-    (state: RootState) => state.device.details?.name || null,
-  );
-
-  useEffect(() => {
-    dispatch(fetchDevice(id));
-  }, [id, dispatch]);
-
-  if (name != null && name.length > 0) {
-    navigation.setOptions({title: name});
-  } else {
-    navigation.setOptions({title: id});
-  }
 
   // TODO add empty state
   return (
@@ -41,16 +18,18 @@ const DevicePage = ({route, navigation}: DeviceScreenProps) => {
         backgroundColor={Colors.primaryDark}
       />
       <SafeAreaView style={styles.container}>
-        {isLoading ? (
-          <LoadingState />
-        ) : loadingError ? (
-          <ErrorState
-            text={loadingError}
-            onRetryPress={() => dispatch(fetchDevice(id))}
-          />
-        ) : (
-          <DeviceDetails />
-        )}
+        <DeviceDetails
+          id={id}
+          onNameChanged={(value) => {
+            // Set the title in the action bar every time it's changed.
+            // Passing the navigation props to DeviceDetails would be overkill.
+            if (value != null && value.length > 0) {
+              navigation.setOptions({title: value});
+            } else {
+              navigation.setOptions({title: id});
+            }
+          }}
+        />
       </SafeAreaView>
     </>
   );

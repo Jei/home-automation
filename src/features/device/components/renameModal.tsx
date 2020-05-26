@@ -32,6 +32,7 @@ const RenameModal = ({
   const [value, setValue] = useState('');
 
   useEffect(() => {
+    // Reset the initial value every time it's changed
     setValue(initialValue || '');
   }, [initialValue]);
 

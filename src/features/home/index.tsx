@@ -7,7 +7,7 @@ import {
   Image,
   StatusBar,
 } from 'react-native';
-import {MainNavigationParamList} from 'src/types';
+import {MainNavigationParamList} from '../../types';
 import {StackScreenProps} from '@react-navigation/stack';
 import Colors from '../../colors';
 
