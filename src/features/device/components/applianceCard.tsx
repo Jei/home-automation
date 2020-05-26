@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import IconButton from './iconButton';
 import FlatButton from './flatButton';
+import Colors from '../../../colors';
 
 type ApplianceCardProps = {
   icon: ImageSourcePropType;
@@ -28,10 +29,10 @@ const ApplianceCard = ({
   const buttonStyle = [
     styles.action,
     {
-      backgroundColor: status ? '#ff0000' : '#ffffff',
+      backgroundColor: status ? Colors.secondary : Colors.background,
     },
   ];
-  const color = status ? '#ffffff' : '#ff0000';
+  const color = status ? Colors.textSecondary : Colors.secondary;
   return (
     <View style={styles.container}>
       <IconButton
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
   container: {
     elevation: 4,
     borderRadius: 8,
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.background,
     margin: 8,
   },
   action: {

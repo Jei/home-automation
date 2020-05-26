@@ -2,6 +2,7 @@ import React from 'react';
 import {Button, SafeAreaView, StyleSheet, Text, Image} from 'react-native';
 import {MainNavigationParamList} from 'src/types';
 import {StackScreenProps} from '@react-navigation/stack';
+import Colors from '../../colors';
 
 type DeviceScreenProps = StackScreenProps<MainNavigationParamList, 'Home'>;
 
@@ -14,7 +15,7 @@ const HomeScreen = ({navigation}: DeviceScreenProps) => {
       />
       <Text style={styles.title}>Device Manager</Text>
       <Button
-        color="#4500c6"
+        color={Colors.primary}
         title="Open Device"
         onPress={() => navigation.navigate('Device', {id: 'd1c0bfb2d'})}
       />
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logo: {
-    tintColor: '#4500c6',
+    tintColor: Colors.primary,
     height: 120,
     width: 120,
   },

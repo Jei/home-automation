@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import Modal from 'react-native-modal';
 import FlatButton from './flatButton';
+import Colors from '../../../colors';
 
 interface RenameActionEvent {
   value: string;
@@ -68,7 +69,7 @@ const RenameModal = ({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.background,
     borderRadius: 4,
   },
   content: {
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 44,
-    borderColor: '#dddddd',
+    borderColor: Colors.separator,
     borderWidth: 1,
     borderRadius: 3,
     marginTop: 16,
@@ -99,10 +100,10 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
   },
   cancel: {
-    color: '#ff0000',
+    color: Colors.error,
   },
   action: {
-    color: '#4500c6',
+    color: Colors.primary,
   },
 });
 

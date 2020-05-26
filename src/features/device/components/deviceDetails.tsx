@@ -7,6 +7,7 @@ import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import {RootState} from 'src/rootReducer';
 import {toggleLight, toggleFan, setAll, setName} from '../deviceSlice';
 import RenameModal from './renameModal';
+import Colors from '../../../colors';
 
 const DeviceDetails = () => {
   const details = useSelector((state: RootState) => {
@@ -53,14 +54,14 @@ const DeviceDetails = () => {
               text="Schedules"
               onPress={() => {}}
               style={styles.controlButton}
-              iconColor={'#0000ff'}
+              iconColor={Colors.primary}
             />
             <IconButton
               icon={require('../../../../assets/images/timers.png')}
               text="Timers"
               onPress={() => {}}
               style={styles.controlButton}
-              iconColor={'#0000ff'}
+              iconColor={Colors.primary}
             />
           </View>
           <View style={styles.verticalSeparator} />
@@ -72,7 +73,7 @@ const DeviceDetails = () => {
                 dispatch(setAll(true));
               }}
               style={styles.controlButton}
-              iconColor={'#00ff00'}
+              iconColor={Colors.success}
             />
             <IconButton
               icon={require('../../../../assets/images/on-off.png')}
@@ -81,7 +82,7 @@ const DeviceDetails = () => {
                 dispatch(setAll(false));
               }}
               style={styles.controlButton}
-              iconColor={'#ff0000'}
+              iconColor={Colors.error}
             />
           </View>
         </View>
@@ -136,7 +137,7 @@ const DeviceDetails = () => {
 
 const styles = StyleSheet.create({
   scrollView: {
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.background,
   },
   controls: {
     marginTop: 8,
@@ -152,7 +153,7 @@ const styles = StyleSheet.create({
   },
   verticalSeparator: {
     width: 1,
-    backgroundColor: '#dddddd',
+    backgroundColor: Colors.separator,
   },
   controlButton: {
     flex: 0.4,
@@ -166,7 +167,7 @@ const styles = StyleSheet.create({
   },
   horizontalSeparator: {
     height: 1,
-    backgroundColor: '#dddddd',
+    backgroundColor: Colors.separator,
   },
   options: {
     alignItems: 'stretch',

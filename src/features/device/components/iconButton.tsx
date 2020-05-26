@@ -11,6 +11,7 @@ import {
   ActivityIndicator,
   ImageSourcePropType,
 } from 'react-native';
+import Colors from '../../../colors';
 
 type IconButtonProps = {
   icon: ImageSourcePropType;
@@ -26,8 +27,8 @@ type IconButtonProps = {
 const IconButton = ({
   icon,
   text,
-  iconColor = '#000000',
-  textColor = '#000000',
+  iconColor = Colors.text,
+  textColor = Colors.text,
   textSize = 14,
   showLoader = false,
   style,

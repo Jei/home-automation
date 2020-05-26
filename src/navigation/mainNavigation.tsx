@@ -3,6 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import DeviceScreen from '../features/device';
 import {MainNavigationParamList} from '../types';
 import HomeScreen from '../features/home';
+import Colors from '../colors';
 
 const Stack = createStackNavigator<MainNavigationParamList>();
 
@@ -11,9 +12,9 @@ const MainNavigation = () => {
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: '#4500c6',
+          backgroundColor: Colors.primary,
         },
-        headerTintColor: '#ffffff',
+        headerTintColor: Colors.textPrimary,
       }}>
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen

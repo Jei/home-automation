@@ -1,6 +1,7 @@
 import React from 'react';
 import {Text, StyleSheet, View, GestureResponderEvent} from 'react-native';
 import FlatButton from './flatButton';
+import Colors from '../../../colors';
 
 type ErrorStateProps = {
   text: string;
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     margin: 8,
     height: 52,
     fontSize: 18,
-    color: '#0000ff',
+    color: Colors.primary,
   },
 });
 

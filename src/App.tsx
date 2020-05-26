@@ -11,8 +11,8 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {Provider} from 'react-redux';
-import store from './src/store';
-import MainNavigation from './src/navigation/mainNavigation';
+import store from './store';
+import MainNavigation from './navigation/mainNavigation';
 
 const App = () => {
   return (
