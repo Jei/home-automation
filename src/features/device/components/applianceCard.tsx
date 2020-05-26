@@ -35,17 +35,24 @@ const ApplianceCard = ({
   const color = status ? Colors.textSecondary : Colors.secondary;
   return (
     <View style={styles.container}>
-      <IconButton
-        icon={icon}
-        text={title}
-        onPress={onPress}
-        style={buttonStyle}
-        showLoader={isLoading}
-        iconColor={color}
-        textColor={color}
-        textSize={16}
+      <View style={styles.border}>
+        <IconButton
+          icon={icon}
+          text={title}
+          onPress={onPress}
+          style={buttonStyle}
+          showLoader={isLoading}
+          iconColor={color}
+          textColor={color}
+          textSize={16}
+        />
+      </View>
+      <FlatButton
+        title="Edit"
+        onPress={onEditPress}
+        style={styles.edit}
+        withFeedback
       />
-      <FlatButton title="Edit" onPress={onEditPress} style={styles.edit} />
     </View>
   );
 };
@@ -56,12 +63,16 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: Colors.background,
     margin: 8,
+    overflow: 'hidden',
   },
-  action: {
+  border: {
     height: 120,
     width: 100,
     borderRadius: 8,
     elevation: 2,
+    overflow: 'hidden',
+  },
+  action: {
     padding: 16,
   },
   edit: {

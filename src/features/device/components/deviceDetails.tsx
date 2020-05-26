@@ -46,7 +46,8 @@ const DeviceDetails = () => {
       />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
-        style={styles.scrollView}>
+        style={styles.scrollView}
+        contentContainerStyle={styles.content}>
         <View style={styles.controls}>
           <View style={styles.controlsSection}>
             <IconButton
@@ -115,18 +116,21 @@ const DeviceDetails = () => {
               setRenaming(true);
             }}
             style={styles.optionButton}
+            withFeedback
           />
           <View style={styles.horizontalSeparator} />
           <FlatButton
             title="Find Me"
             onPress={() => {}}
             style={styles.optionButton}
+            withFeedback
           />
           <View style={styles.horizontalSeparator} />
           <FlatButton
             title="Reboot"
             onPress={() => {}}
             style={styles.optionButton}
+            withFeedback
           />
           <View style={styles.horizontalSeparator} />
         </View>
@@ -139,16 +143,17 @@ const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: Colors.background,
   },
+  content: {
+    marginVertical: 8,
+  },
   controls: {
-    marginTop: 8,
-    height: 96,
     alignItems: 'stretch',
     flexDirection: 'row',
-    paddingVertical: 8,
   },
   controlsSection: {
     flex: 1,
     flexDirection: 'row',
+    alignItems: 'stretch',
     justifyContent: 'space-around',
   },
   verticalSeparator: {
@@ -157,7 +162,8 @@ const styles = StyleSheet.create({
   },
   controlButton: {
     flex: 0.4,
-    marginVertical: 4,
+    height: 72,
+    marginVertical: 12,
   },
   appliances: {
     flexDirection: 'row',

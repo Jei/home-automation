@@ -11,7 +11,7 @@ const Colors = {
   textSecondary: '#ffffff',
   text: '#000000',
   background: '#ffffff',
-  separator: '#1e000000',
+  separator: '#0000001e',
 };
 
 export default Colors;

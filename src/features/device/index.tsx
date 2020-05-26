@@ -8,6 +8,7 @@ import LoadingState from './components/loadingState';
 import DeviceDetails from './components/deviceDetails';
 import {StackScreenProps} from '@react-navigation/stack';
 import {MainNavigationParamList} from 'src/types';
+import Colors from '../../colors';
 
 type DeviceScreenProps = StackScreenProps<MainNavigationParamList, 'Device'>;
 
@@ -33,7 +34,10 @@ const DevicePage = ({route, navigation}: DeviceScreenProps) => {
   // TODO add empty state
   return (
     <>
-      <StatusBar barStyle="light-content" />
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor={Colors.primaryDark}
+      />
       <SafeAreaView style={styles.container}>
         {isLoading ? (
           <LoadingState />
