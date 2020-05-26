@@ -8,7 +8,11 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "mock-server": "json-server --watch db.json"
+    "mock-server": "json-server --watch db.json",
+    "assembleAndroidDebug": "cd android && ./gradlew assembleDebug && cd ..",
+    "installAndroidDebug": "adb install android/app/build/outputs/apk/debug/app-debug.apk",
+    "assembleAndroidRelease": "cd android && ./gradlew assembleRelease && cd ..",
+    "installAndroidRelease": "adb install android/app/build/outputs/apk/release/app-release.apk"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.10.3",
