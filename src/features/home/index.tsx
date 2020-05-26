@@ -1,5 +1,12 @@
 import React from 'react';
-import {Button, SafeAreaView, StyleSheet, Text, Image} from 'react-native';
+import {
+  Button,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  Image,
+  StatusBar,
+} from 'react-native';
 import {MainNavigationParamList} from 'src/types';
 import {StackScreenProps} from '@react-navigation/stack';
 import Colors from '../../colors';
@@ -8,18 +15,24 @@ type DeviceScreenProps = StackScreenProps<MainNavigationParamList, 'Home'>;
 
 const HomeScreen = ({navigation}: DeviceScreenProps) => {
   return (
-    <SafeAreaView style={styles.container}>
-      <Image
-        source={require('../../../assets/images/home-assistant.png')}
-        style={styles.logo}
+    <>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor={Colors.primaryDark}
       />
-      <Text style={styles.title}>Device Manager</Text>
-      <Button
-        color={Colors.primary}
-        title="Open Device"
-        onPress={() => navigation.navigate('Device', {id: 'd1c0bfb2d'})}
-      />
-    </SafeAreaView>
+      <SafeAreaView style={styles.container}>
+        <Image
+          source={require('../../../assets/images/home-assistant.png')}
+          style={styles.logo}
+        />
+        <Text style={styles.title}>Home Automation</Text>
+        <Button
+          color={Colors.primary}
+          title="  Open Device  "
+          onPress={() => navigation.navigate('Device', {id: 'd1c0bfb2d'})}
+        />
+      </SafeAreaView>
+    </>
   );
 };
 
@@ -28,6 +41,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 16,
   },
   logo: {
     tintColor: Colors.primary,
@@ -35,9 +49,11 @@ const styles = StyleSheet.create({
     width: 120,
   },
   title: {
+    textAlign: 'center',
+    alignSelf: 'stretch', // This is to avoid a rendering problem on some devices. See https://github.com/facebook/react-native/issues/21729
     fontSize: 32,
     fontWeight: 'bold',
-    margin: 24,
+    marginVertical: 32,
   },
 });
 
