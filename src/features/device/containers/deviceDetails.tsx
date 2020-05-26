@@ -4,7 +4,7 @@ import FlatButton from '../../../components/flatButton';
 import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import {RootState} from '../../../rootReducer';
 import {setName, fetchDevice} from '../deviceSlice';
-import RenameModal from '../components/renameModal';
+import TextInputModal from '../../../components/textInputModal';
 import Colors from '../../../colors';
 import FanControl from './fanControl';
 import LightControl from './lightControl';
@@ -65,7 +65,8 @@ const DeviceDetails = ({id, onNameChanged}: DeviceDetailsProps) => {
 
   return (
     <>
-      <RenameModal
+      <TextInputModal
+        title="Rename device"
         isVisible={renaming}
         loading={details.isLoadingName}
         initialValue={name}

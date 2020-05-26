@@ -10,6 +10,7 @@ import {
 import {MainNavigationParamList} from '../../types';
 import {StackScreenProps} from '@react-navigation/stack';
 import Colors from '../../colors';
+import HostInput from './containers/hostInput';
 
 type DeviceScreenProps = StackScreenProps<MainNavigationParamList, 'Home'>;
 
@@ -31,6 +32,7 @@ const HomeScreen = ({navigation}: DeviceScreenProps) => {
           title="  Open Device  "
           onPress={() => navigation.navigate('Device', {id: 'd1c0bfb2d'})}
         />
+        <HostInput />
       </SafeAreaView>
     </>
   );

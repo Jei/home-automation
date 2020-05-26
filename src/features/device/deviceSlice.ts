@@ -2,6 +2,7 @@ import {Device} from '../../types';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {AppThunk} from '../../store';
 import api from '../../services/api';
+import {endpointSelector} from '../home/homeSlice';
 
 interface DeviceState {
   details: Device | null;
@@ -134,11 +135,16 @@ export const {
 
 export default deviceSlice.reducer;
 
-export const fetchDevice = (id: string): AppThunk => async (dispatch) => {
+export const fetchDevice = (id: string): AppThunk => async (
+  dispatch,
+  getState,
+) => {
   let response: Device;
   dispatch(fetchDeviceStart());
   try {
-    response = await api.get<Device>(`/devices/${id}`).then((res) => res.data);
+    response = await api
+      .get<Device>(`${endpointSelector(getState().home)}/devices/${id}`)
+      .then((res) => res.data);
   } catch (err) {
     dispatch(fetchDeviceError(err.toString()));
     return;
@@ -147,7 +153,8 @@ export const fetchDevice = (id: string): AppThunk => async (dispatch) => {
 };
 
 const setFan = (value: boolean): AppThunk => async (dispatch, getState) => {
-  const {details, isLoading, isLoadingFan} = getState().device;
+  const {home, device} = getState();
+  const {details, isLoading, isLoadingFan} = device;
 
   if (isLoading || details === null) {
     dispatch(setFanError('Device unavailable'));
@@ -162,7 +169,7 @@ const setFan = (value: boolean): AppThunk => async (dispatch, getState) => {
 
   dispatch(setFanStart());
   try {
-    await api.patch(`/devices/${id}`, {
+    await api.patch(`${endpointSelector(home)}/devices/${id}`, {
       fan: value,
     });
   } catch (err) {
@@ -184,7 +191,8 @@ export const toggleFan = (): AppThunk => async (dispatch, getState) => {
 };
 
 const setLight = (value: boolean): AppThunk => async (dispatch, getState) => {
-  const {details, isLoading, isLoadingLight} = getState().device;
+  const {home, device} = getState();
+  const {details, isLoading, isLoadingLight} = device;
 
   if (isLoading || details === null) {
     dispatch(setLightError('Device unavailable'));
@@ -199,7 +207,7 @@ const setLight = (value: boolean): AppThunk => async (dispatch, getState) => {
 
   dispatch(setLightStart());
   try {
-    await api.patch(`/devices/${id}`, {
+    await api.patch(`${endpointSelector(home)}/devices/${id}`, {
       light: value,
     });
   } catch (err) {
@@ -224,7 +232,8 @@ export const setAll = (status: boolean): AppThunk => async (
   dispatch,
   getState,
 ) => {
-  const {details, isLoading, isLoadingFan, isLoadingLight} = getState().device;
+  const {home, device} = getState();
+  const {details, isLoading, isLoadingFan, isLoadingLight} = device;
 
   if (isLoading || details === null) {
     dispatch(setAllError('Device unavailable'));
@@ -242,7 +251,7 @@ export const setAll = (status: boolean): AppThunk => async (
   } else if (updateFan && updateLight) {
     dispatch(setAllStart());
     try {
-      await api.patch(`/devices/${details.id}`, {
+      await api.patch(`${endpointSelector(home)}/devices/${details.id}`, {
         fan: status,
         light: status,
       });
@@ -258,7 +267,8 @@ export const setName = (name: string | null): AppThunk => async (
   dispatch,
   getState,
 ) => {
-  const {details, isLoading} = getState().device;
+  const {home, device} = getState();
+  const {details, isLoading} = device;
 
   if (isLoading || details === null) {
     dispatch(setNameError('Device unavailable'));
@@ -267,7 +277,7 @@ export const setName = (name: string | null): AppThunk => async (
 
   dispatch(setNameStart());
   try {
-    await api.patch(`/devices/${details.id}`, {
+    await api.patch(`${endpointSelector(home)}/devices/${details.id}`, {
       name,
     });
   } catch (err) {

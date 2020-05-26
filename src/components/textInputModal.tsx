@@ -7,14 +7,15 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import Modal from 'react-native-modal';
-import FlatButton from '../../../components/flatButton';
-import Colors from '../../../colors';
+import FlatButton from './flatButton';
+import Colors from '../colors';
 
 interface RenameActionEvent {
   value: string;
 }
 
-type RenameModalProps = {
+type TextInputModalProps = {
+  title?: string | null;
   isVisible: boolean;
   loading?: boolean;
   initialValue?: string | null;
@@ -22,13 +23,14 @@ type RenameModalProps = {
   onCancel: () => void;
 };
 
-const RenameModal = ({
+const TextInputModal = ({
+  title,
   isVisible,
   loading = false,
   initialValue,
   onAction,
   onCancel,
-}: RenameModalProps) => {
+}: TextInputModalProps) => {
   const [value, setValue] = useState('');
 
   useEffect(() => {
@@ -44,7 +46,7 @@ const RenameModal = ({
       onBackButtonPress={onCancel}>
       <View style={styles.container}>
         <View style={styles.content}>
-          <Text style={styles.title}>Rename device</Text>
+          <Text style={styles.title}>{title}</Text>
           <TextInput
             style={styles.input}
             value={value}
@@ -114,4 +116,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RenameModal;
+export default TextInputModal;
