@@ -129,7 +129,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.infiniteautomationassignment"
+        applicationId "me.jonus.homeautomation"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
