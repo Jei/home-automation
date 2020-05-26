@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   StyleSheet,
-  TouchableWithoutFeedback,
   Image,
   Text,
   View,
@@ -12,6 +11,10 @@ import {
   ImageSourcePropType,
 } from 'react-native';
 import Colors from '../../../colors';
+import {
+  TouchableOpacity,
+  TouchableNativeFeedback,
+} from 'react-native-gesture-handler';
 
 type IconButtonProps = {
   icon: ImageSourcePropType;
@@ -35,27 +38,33 @@ const IconButton = ({
   onPress,
 }: IconButtonProps) => {
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
-      <View style={[styles.container, style]}>
-        {showLoader ? (
-          <ActivityIndicator color={iconColor} size="large" />
-        ) : (
-          <Image source={icon} style={[styles.icon, {tintColor: iconColor}]} />
-        )}
-        <Text style={[styles.text, {color: textColor, fontSize: textSize}]}>
-          {text}
-        </Text>
-      </View>
-    </TouchableWithoutFeedback>
+    <TouchableNativeFeedback
+      onPress={onPress}
+      style={[styles.touchable, style]}
+      containerStyle={styles.container}>
+      {showLoader ? (
+        <ActivityIndicator color={iconColor} size="large" />
+      ) : (
+        <Image source={icon} style={[styles.icon, {tintColor: iconColor}]} />
+      )}
+      <Text
+        style={[styles.text, {color: textColor, fontSize: textSize}]}
+        numberOfLines={1}>
+        {text}
+      </Text>
+    </TouchableNativeFeedback>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  touchable: {
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  container: {
+    flex: 1,
   },
   icon: {
     height: 40,

@@ -1,12 +1,12 @@
 import React from 'react';
 import {
   Text,
-  TouchableWithoutFeedback,
   GestureResponderEvent,
   StyleProp,
   StyleSheet,
   TextStyle,
 } from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 type FlatButtonProps = {
   title: string | null;
@@ -16,9 +16,11 @@ type FlatButtonProps = {
 
 const FlatButton = ({title, style, onPress}: FlatButtonProps) => {
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
-      <Text style={[styles.title, style]}>{title}</Text>
-    </TouchableWithoutFeedback>
+    <TouchableOpacity onPress={onPress}>
+      <Text style={[styles.title, style]} numberOfLines={1}>
+        {`  ${title}  `}
+      </Text>
+    </TouchableOpacity>
   );
 };
 
