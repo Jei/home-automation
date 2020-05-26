@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import Modal from 'react-native-modal';
-import FlatButton from './flatButton';
+import FlatButton from '../../../components/flatButton';
 import Colors from '../../../colors';
 
 interface RenameActionEvent {

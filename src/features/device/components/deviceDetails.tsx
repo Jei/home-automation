@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
-import IconButton from './iconButton';
+import IconButton from '../../../components/iconButton';
 import ApplianceCard from './applianceCard';
-import FlatButton from './flatButton';
+import FlatButton from '../../../components/flatButton';
 import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import {RootState} from 'src/rootReducer';
 import {toggleLight, toggleFan, setAll, setName} from '../deviceSlice';

@@ -9,7 +9,7 @@ import {
   ActivityIndicator,
   ImageSourcePropType,
 } from 'react-native';
-import Colors from '../../../colors';
+import Colors from '../colors';
 import {TouchableNativeFeedback} from 'react-native-gesture-handler';
 
 type IconButtonProps = {

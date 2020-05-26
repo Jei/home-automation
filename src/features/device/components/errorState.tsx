@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, StyleSheet, View, GestureResponderEvent} from 'react-native';
-import FlatButton from './flatButton';
+import FlatButton from '../../../components/flatButton';
 import Colors from '../../../colors';
 
 type ErrorStateProps = {
@@ -12,7 +12,11 @@ const ErrorState = ({text, onRetryPress}: ErrorStateProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{text}</Text>
-      <FlatButton title="Retry" style={styles.button} onPress={onRetryPress} />
+      <FlatButton
+        title=" Retry "
+        style={styles.button}
+        onPress={onRetryPress}
+      />
     </View>
   );
 };

@@ -5,8 +5,8 @@ import {
   GestureResponderEvent,
   ImageSourcePropType,
 } from 'react-native';
-import IconButton from './iconButton';
-import FlatButton from './flatButton';
+import IconButton from '../../../components/iconButton';
+import FlatButton from '../../../components/flatButton';
 import Colors from '../../../colors';
 
 type ApplianceCardProps = {
